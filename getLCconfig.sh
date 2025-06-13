@@ -13,7 +13,7 @@
 
 cat <<@EOF >> hltDataLC.py
 
-process.GlobalTag.toGet = cms.VPSet(
+process.GlobalTag.toGet.append(
   cms.PSet(record = cms.string("EcalLaserAPDPNRatiosRcd"),
            tag = cms.string("EcalLaserAPDPNRatios_prompt_v3"),
            connect = cms.string("frontier://FrontierProd/CMS_CONDITIONS")
@@ -26,6 +26,9 @@ process.hltOutputMinimal.outputCommands = [
     'keep edmTriggerResults_*_*_HLTX',
     'keep triggerTriggerEvent_*_*_HLTX' 
 ]
+
+
+process.options.numberOfThreads = 1
 
 @EOF
 
