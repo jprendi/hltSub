@@ -19,6 +19,10 @@ parser=OptionParser()
 parser.add_option("-n",dest="nPerJob",type="int",default=1,help="NUMBER of files processed per job",metavar="NUMBER")
 parser.add_option("-q","--flavour",dest="jobFlavour",type="str",default="workday",help="job FLAVOUR",metavar="FLAVOUR")
 parser.add_option("-p","--proxy",dest="proxyPath",type="str",default="noproxy",help="Proxy path")
+parser.add_option("--fileNumber", dest="fileNumber", type="int", default=None,
+                  help="File number to choose the corresponding file list, e.g. 615 for fileList_615.txt")
+
+
 
 opts, args = parser.parse_args()
 
@@ -67,7 +71,9 @@ fullSource = process.source.clone()
 
 nJobs = -1
 
-with open('fileList_509.txt', 'r') as f:
+filepath = f'/afs/cern.ch/user/j/jprendi/LCtimeseries/src/hltSub/fileList_{opts.fileNumber}.txt'
+
+with open(filepath, 'r') as f:
     file_paths = [line.strip() for line in f if line.strip()]
 
 
