@@ -13,13 +13,12 @@
 
 cat <<@EOF >> hltDataPed.py
 
-process.GlobalTag.toGet = cms.VPSet(
+process.GlobalTag.toGet.append(
   cms.PSet(record = cms.string("EcalPedestalsRcd"),
            tag = cms.string("EcalPedestals_prompt"),
            connect = cms.string("frontier://FrontierProd/CMS_CONDITIONS")
           )
 )
-
 
 
 process.hltOutputMinimal.outputCommands = [
@@ -35,4 +34,4 @@ process.options.numberOfThreads = 1
 @EOF
 
 edmConfigDump hltDataPed.py > dumpPed.py
-
+rm hltDataPed.py
