@@ -6,10 +6,9 @@ for d in [0-9]*; do
     (
       cd "$d" || exit
 
-      # Move completed jobs to passedJobs/
+      # Move successful jobs to passedJobs/
       find . -name "*.stderr" -exec grep -l "errors = 0" {} + | while read -r file; do
         job_dir=$(dirname "$file")
-        # Avoid moving if already in passedJobs
         if [[ "$job_dir" != ./passedJobs/* ]]; then
           mv "$job_dir" passedJobs/
         fi
@@ -21,7 +20,11 @@ for d in [0-9]*; do
         echo "Resubmitting in $d..."
         condor_submit condor_cluster.sub
       else
-        echo "No Jobs/ directory or all moved"
+        echo "No Jobs/ directory or all moved. Moving $d to /eos/user/j/jprendi"
+        cd .. || exit
+        mv "$d" /eos/user/j/jprendi/
+        # Skip the rest of the loop since we already moved the directory
+        continue
       fi
       echo "--------"
     )
