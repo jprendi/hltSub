@@ -1,6 +1,6 @@
 #!/bin/bash -ex
 
-    hltGetConfiguration /dev/CMSSW_15_0_0/GRun \
+    hltGetConfiguration /dev/CMSSW_15_0_0/GRun/V80 \
        --globaltag 150X_dataRun3_Prompt_v1 \
        --data \
        --unprescale \
